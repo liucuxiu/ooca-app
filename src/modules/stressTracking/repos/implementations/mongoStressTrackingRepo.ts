@@ -16,5 +16,4 @@ export class MongoStressTrackingRepo implements IStressTrackingRepo {
     const saveResult = await StressTrackingModel.create(persistenceStressTracking);
     return StressTrackingMapper.toDomain(saveResult);
   }
-
 }

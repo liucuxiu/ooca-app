@@ -14,5 +14,4 @@ export class GetStressTrackingUseCase implements UseCase<any, any> {
     const listStressTracking: StressTracking[] = await this.stressTrackingRepo.findAll(userId);
     return listStressTracking.map(stressTracking => StressTrackingMapper.toDTO(stressTracking));
   }
-
 }

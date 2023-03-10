@@ -22,7 +22,7 @@ describe('StressTracking', () => {
         stressLevel: 5,
         createdAt: new Date(),
       };
-      const id = '123abc'
+      const id = '123abc';
       const stressTracking = StressTracking.create(props, id);
 
       expect(stressTracking.stressTrackingId).toBe('123abc');

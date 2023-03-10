@@ -23,7 +23,7 @@ export class StressTracking {
 
   private constructor(props: IStressTrackingProperties, id?: string) {
     this.props = props;
-    this.id = id ? id: v4uuid();
+    this.id = id ? id : v4uuid();
   }
 
   get stressTrackingId(): string {

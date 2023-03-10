@@ -10,7 +10,7 @@ export class StressTrackingMapper {
       isAnonymous: stressTracking.isAnonymous,
       stressLevel: stressTracking.stressLevel,
       createdAt: stressTracking.createdAt,
-    }
+    };
   }
 
   public static toDomain(raw: any) {
@@ -30,6 +30,6 @@ export class StressTrackingMapper {
       stressLevel: stressTracking.stressLevel,
       imageUrl: stressTracking.imageUrl,
       isAnonymous: stressTracking.isAnonymous
-    }
+    };
   }
 }
