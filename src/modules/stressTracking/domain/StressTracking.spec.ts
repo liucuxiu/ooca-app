@@ -17,16 +17,15 @@ describe('StressTracking', () => {
 
     it('should create an instance of StressTracking with the provided id', () => {
       const props = {
-        id: 'abc',
         userId: '123',
         isAnonymous: false,
         stressLevel: 5,
         createdAt: new Date(),
       };
+      const id = '123abc'
+      const stressTracking = StressTracking.create(props, id);
 
-      const stressTracking = StressTracking.create(props);
-
-      expect(stressTracking.stressTrackingId).toBe('abc');
+      expect(stressTracking.stressTrackingId).toBe('123abc');
     });
   });
 
