@@ -1,12 +1,11 @@
 import { v4 as v4uuid } from 'uuid';
 
 interface IStressTrackingProperties {
-  id?: string;
   userId: string;
   isAnonymous: boolean;
   stressLevel: number;
   imageUrl?: string;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 interface IStressTrackingSerialize {
@@ -15,16 +14,16 @@ interface IStressTrackingSerialize {
   isAnonymous: boolean;
   stressLevel: number;
   imageUrl?: string;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 export class StressTracking {
   props: IStressTrackingProperties;
   protected id: string;
 
-  private constructor(props: IStressTrackingProperties) {
+  private constructor(props: IStressTrackingProperties, id?: string) {
     this.props = props;
-    this.id = props.id ? props.id : v4uuid();
+    this.id = id ? id: v4uuid();
   }
 
   get stressTrackingId(): string {
@@ -47,11 +46,22 @@ export class StressTracking {
     return this.props.imageUrl;
   }
 
-  get createdAt(): Date {
+  get createdAt(): Date | undefined {
     return this.props.createdAt;
   }
 
-  public static create(props: IStressTrackingProperties): StressTracking {
-    return new StressTracking(props);
+  public serialize(): IStressTrackingSerialize {
+    return {
+      id: this.id,
+      createdAt: this.createdAt,
+      imageUrl: this.imageUrl,
+      isAnonymous: this.isAnonymous,
+      stressLevel: this.stressLevel,
+      userId: this.userId
+    };
+  }
+
+  public static create(props: IStressTrackingProperties, id?: string): StressTracking {
+    return new StressTracking(props, id);
   }
 }

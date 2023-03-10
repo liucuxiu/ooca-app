@@ -3,11 +3,9 @@ import mongoose from 'mongoose';
 const stressTrackingSchema = new mongoose.Schema({
   _id: {
     type: String,
-    required: true,
-    unique: true
   },
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'User'
   },
   isAnonymous: {

@@ -1,23 +1,85 @@
-import { CreateStressTrackingController } from "./CreateStressTrackingController";
-import { CreateStressTrackingUseCase } from "./CreateStressTrackingUseCase";
+import { CreateStressTrackingController } from './CreateStressTrackingController';
+import { CreateStressTrackingUseCase } from './CreateStressTrackingUseCase';
+import { stressTrackingRepo } from '../../repos';
+import httpMocks from 'node-mocks-http';
 
-describe("CreateStressTrackingController", () => {
-  it("should execute use case and return 200 status", async () => {
-    const mockRequest: any = {};
-    const mockResponse: any = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
+jest.mock('./CreateStressTrackingUseCase', () => {
+  const useCase = {
+    execute: jest.fn()
+  };
+  return { CreateStressTrackingUseCase: jest.fn(() => useCase) };
+});
+const useCaseMock = new CreateStressTrackingUseCase(stressTrackingRepo);
+const executeMock = useCaseMock.execute as jest.Mock;
+
+const controller = new CreateStressTrackingController(useCaseMock);
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
+afterEach(() => {
+  jest.resetAllMocks();
+});
+
+describe('CreateStressTrackingController', () => {
+  it('should call use case with correct arguments and return 200 status code on success', async () => {
+    // Arrange
+    const mockStressTrackingDTO = {
+      stressLevel: 5,
+      isAnonymous: false
     };
-    const stressTrackingRepo = {
-      save: jest.fn(),
-      findAll: jest.fn()
+    const mockUserId = '123';
+    const mockCreateStressTrackingResult = {
+      stressLevel: 5,
+      isAnonymous: false
     };
-    const mockUseCase = new CreateStressTrackingUseCase(stressTrackingRepo);
-    const controller = new CreateStressTrackingController(mockUseCase);
 
-    await controller.execute(mockRequest, mockResponse);
+    executeMock.mockResolvedValue(mockCreateStressTrackingResult);
+    const mockReq = httpMocks.createRequest({
+      body: mockStressTrackingDTO,
+      decoded: { userId: mockUserId },
+    });
+    const mockRes = httpMocks.createResponse();
 
-    expect(mockResponse.status).toHaveBeenCalledWith(200);
-    expect(mockResponse.json).toHaveBeenCalled();
+    // Act
+    await controller.executeImpl(mockReq, mockRes);
+    let data = mockRes._getJSONData();
+
+    // Assert
+    expect(useCaseMock.execute).toHaveBeenCalledWith({
+      ...mockStressTrackingDTO,
+      userId: mockUserId,
+    });
+    expect(mockRes.statusCode).toBe(200);
+    expect(data).toEqual(mockCreateStressTrackingResult);
+  });
+
+  it('should return 500 status code and error message on use case failure', async () => {
+    // Arrange
+    const mockStressTrackingDTO = { stressLevel: 5, isAnonymous: false };
+    const mockUserId = '123';
+    const mockError = 'Error message';
+
+    executeMock.mockRejectedValue(mockError);
+    const mockReq = httpMocks.createRequest({
+      body: mockStressTrackingDTO,
+      decoded: { userId: mockUserId },
+    });
+    const mockRes = httpMocks.createResponse();
+
+    // Act
+    await controller.executeImpl(mockReq, mockRes);
+    let data = mockRes._getJSONData();
+
+    // Assert
+    expect(useCaseMock.execute).toHaveBeenCalledWith({
+      ...mockStressTrackingDTO,
+      userId: mockUserId,
+    });
+    expect(mockRes.statusCode).toEqual(500);
+    expect(data).toEqual({
+      message: mockError
+    });
   });
 });

@@ -17,6 +17,16 @@ services:
     depends_on:
       - mongo
       - redis
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger_ui_container
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./document:/usr/share/nginx/html/document
+    environment:
+      URLS_PRIMARY_NAME: "OOCA-APP"
+      URLS: "[{ url: 'document/api.yaml', name: 'Occa app API'},]"
 volumes:
   mydata:
     driver: local
