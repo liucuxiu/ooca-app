@@ -4,7 +4,6 @@ import { BaseError } from '../../../shared/core/BaseError';
 import bcrypt from 'bcrypt';
 
 interface IUserProperties {
-  id?: string;
   email: string;
   username: string;
   password?: string;
@@ -25,9 +24,9 @@ export class User {
   props: IUserProperties;
   protected id: string;
 
-  private constructor(props: IUserProperties) {
+  private constructor(props: IUserProperties, id?: string) {
     this.props = props;
-    this.id = props.id ? props.id : v4uuid();
+    this.id = id ? id : v4uuid();
   }
 
   get userId() {
@@ -106,7 +105,7 @@ export class User {
     return username ? reg.test(username) : false;
   }
 
-  public static create(props: IUserProperties): User {
+  public static create(props: IUserProperties, id?: string): User {
     const { username, email } = props;
     if (!User.isValidUserName(username)) {
       throw BaseError.invalidInput('username');
@@ -118,6 +117,6 @@ export class User {
       ...props,
       isDeleted: props.isDeleted ? props.isDeleted : false,
       isEmailVerified: props.isEmailVerified ? props.isEmailVerified : false,
-    });
+    }, id);
   }
 }

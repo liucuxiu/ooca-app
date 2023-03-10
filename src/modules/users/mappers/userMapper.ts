@@ -15,9 +15,8 @@ export class UserMap {
       username: raw.username,
       isDeleted: raw.is_deleted,
       email: raw.email,
-      id: raw._id,
       password: raw.password
-    });
+    }, raw._id);
   }
 
   public static toPersistence(user: User) {
