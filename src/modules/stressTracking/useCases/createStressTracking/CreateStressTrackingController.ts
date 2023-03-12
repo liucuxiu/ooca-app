@@ -11,14 +11,14 @@ export class CreateStressTrackingController extends BaseController {
   }
 
   async executeImpl(req: any, res: any): Promise<any> {
-    const stressTrackingDTO: StressTrackingDTO = req.body;
-    const { userId } = req.decoded;
+    const stressTrackingDTO: StressTrackingDTO = {
+      ...req.body,
+      imageUrl: req.file ? req.file.path : undefined,
+      userId: req.decoded.userId
+    };
 
     try {
-      const createStressTrackingResult = await this.useCase.execute({
-        ...stressTrackingDTO,
-        userId
-      });
+      const createStressTrackingResult = await this.useCase.execute(stressTrackingDTO);
       return this.ok(res, createStressTrackingResult);
     }
     catch (err) {

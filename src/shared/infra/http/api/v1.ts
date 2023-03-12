@@ -7,6 +7,3 @@ export const v1Router = express.Router();
 v1Router.use('/user', userRouter);
 v1Router.use('/stressTracking', stressTrackingRouter);
 
-v1Router.get('/', (req, res) => {
-  return res.json({ message: 'ok' });
-});

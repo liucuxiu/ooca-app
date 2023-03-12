@@ -17,6 +17,8 @@ services:
     depends_on:
       - mongo
       - redis
+    volumes:
+      - ./uploads:/usr/src/ooca-app/uploads
   swagger-ui:
     image: swaggerapi/swagger-ui
     container_name: swagger_ui_container
