@@ -1,0 +1,496 @@
+openapi: 3.0.0
+info:
+  title: stress tracking
+  contact: {}
+  version: '1.0'
+servers:
+  - url: http://localhost:3000
+    variables: {}
+paths:
+  /stressTracking:
+    post:
+      tags:
+        - Stress Tracking
+      summary: create stress tracking
+      operationId: createstresstracking
+      security:
+        - jwt: []
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+                - stressLevel
+                - isAnonymous
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                stressLevel:
+                  type: integer
+                  format: int32
+                  example: 2
+                isAnonymous:
+                  type: boolean
+                  example: true
+        required: false
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Express
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '252'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"fc-7XIHJs0Ntspu2+PaGC8WuIkKgE0"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sun, 12 Mar 2023 02:49:22 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/createstresstracking'
+                  - example:
+                      id: cf519f1e-03df-43cf-8ca9-d2f4da9ca87c
+                      userId: anonymous
+                      imageUrl: uploads/195b9696-085a-4760-89d1-29508b46c5eb-275235830_2771016703206314_7596701828654798358_n.jpeg
+                      isAnonymous: true
+                      stressLevel: 2
+                      createdAt: 2023-03-12T02:49:22.490Z
+              example:
+                id: cf519f1e-03df-43cf-8ca9-d2f4da9ca87c
+                userId: anonymous
+                imageUrl: uploads/195b9696-085a-4760-89d1-29508b46c5eb-275235830_2771016703206314_7596701828654798358_n.jpeg
+                isAnonymous: true
+                stressLevel: 2
+                createdAt: 2023-03-12T02:49:22.490Z
+      deprecated: false
+    get:
+      tags:
+        - Stress Tracking
+      summary: get stress tracking
+      operationId: getstresstracking
+      security:
+        - jwt: [ ]
+      parameters:
+        - name: Authorization
+          in: header
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+            example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxpdWN1eGl1M0BnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImxpdWN1eGl1MyIsInVzZXJJZCI6ImQ2MWJjOGQxLWZkNjQtNDM1Zi05ZmM4LTA2OWUzOWVkZjc3MSIsImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsImlhdCI6MTY3ODU4ODc2OCwiZXhwIjoxNjc4NTkxNzY4fQ.BWMT_XMEVuxedK8cwMKmKFi_oa2g-97Ecq24JS_sGd0
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Express
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '395'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"18b-UzTQu6BALj7e1Ls+GSJ+wjof5Fc"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sun, 12 Mar 2023 02:46:11 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/getstresstracking'
+                description: ''
+                example:
+                  - id: bceb82ec-18b3-4a84-959c-b310c6cc965c
+                    userId: anonymous
+                    isAnonymous: true
+                    stressLevel: 1
+                    createdAt: 2023-03-12T02:44:59.902Z
+                  - id: d1fc06c5-ddb6-4473-8e90-b7b90020019d
+                    userId: anonymous
+                    imageUrl: uploads/4c553277-a8a0-4d7c-b235-e91d5980cd63-275235830_2771016703206314_7596701828654798358_n.jpeg
+                    isAnonymous: true
+                    stressLevel: 5
+                    createdAt: 2023-03-12T02:44:34.783Z
+              example:
+                - id: bceb82ec-18b3-4a84-959c-b310c6cc965c
+                  userId: anonymous
+                  isAnonymous: true
+                  stressLevel: 1
+                  createdAt: 2023-03-12T02:44:59.902Z
+                - id: d1fc06c5-ddb6-4473-8e90-b7b90020019d
+                  userId: anonymous
+                  imageUrl: uploads/4c553277-a8a0-4d7c-b235-e91d5980cd63-275235830_2771016703206314_7596701828654798358_n.jpeg
+                  isAnonymous: true
+                  stressLevel: 5
+                  createdAt: 2023-03-12T02:44:34.783Z
+      deprecated: false
+  /user/signup:
+    post:
+      tags:
+        - User
+      summary: signup
+      operationId: signup
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/signupRequest'
+                - example:
+                    username: liucuxiu1
+                    email: liucuxiu1@gmail.com
+                    password: '123455678'
+            example:
+              username: liucuxiu1
+              email: liucuxiu1@gmail.com
+              password: '123455678'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Express
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '98'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"62-vsKBYUvZTEf14VR1PRU+LoHeS2A"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 04 Mar 2023 03:29:39 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/signup'
+                  - example:
+                      id: a52ee470-6a1a-4600-b72f-b1afa35421d4
+                      username: liucuxiu1
+                      email: liucuxiu1@gmail.com
+              example:
+                id: a52ee470-6a1a-4600-b72f-b1afa35421d4
+                username: liucuxiu1
+                email: liucuxiu1@gmail.com
+      deprecated: false
+  /user/login:
+    post:
+      tags:
+        - User
+      summary: login
+      operationId: login
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/loginRequest'
+                - example:
+                    username: liucuxiu1
+                    password: '123455678'
+            example:
+              username: liucuxiu1
+              password: '123455678'
+        required: true
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-Powered-By:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Express
+            Access-Control-Allow-Origin:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '*'
+            Content-Length:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: '587'
+            ETag:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: W/"24b-KPBso0eGvLp9H4NR40gnHe8tRAI"
+            Date:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: Sat, 04 Mar 2023 03:29:55 GMT
+            Connection:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: keep-alive
+            Keep-Alive:
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                  example: timeout=5
+          content:
+            application/json; charset=utf-8:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/login'
+                  - example:
+                      accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxpdWN1eGl1MUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImxpdWN1eGl1MSIsInVzZXJJZCI6ImE1MmVlNDcwLTZhMWEtNDYwMC1iNzJmLWIxYWZhMzU0MjFkNCIsImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsImlhdCI6MTY3NzkwMDU5NSwiZXhwIjoxNjc3OTMwNTk1fQ.j0WUe-yVVi8Z-MXMZHUkvKiAqzP6nOTNtvUR7ynyxFA
+                      refreshToken: Z8px7I0mNCM7OhlWN2RQcemq8nJky5MRNZI3YV9M9BG3ibaX1TUVqu15I8CVSF8VsvImCvjKWog10NkOmkgm1SqahY4Jg5lwULFXDYIWJkROULh3TeeTrqC3JniRiMNOdFtZKe8ZM6UT5OR9Qi8C8SPYMwLQsSE5VvI0xlXTj4ShvOfc0btLXSGAJRcpnopWOtAiSh6nGJ5uor68oHnbqrXc1bg1qMKT8XDbXsqfZjhRmgzziTPHzxXl03FEJljo
+              example:
+                accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxpdWN1eGl1MUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImxpdWN1eGl1MSIsInVzZXJJZCI6ImE1MmVlNDcwLTZhMWEtNDYwMC1iNzJmLWIxYWZhMzU0MjFkNCIsImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsImlhdCI6MTY3NzkwMDU5NSwiZXhwIjoxNjc3OTMwNTk1fQ.j0WUe-yVVi8Z-MXMZHUkvKiAqzP6nOTNtvUR7ynyxFA
+                refreshToken: Z8px7I0mNCM7OhlWN2RQcemq8nJky5MRNZI3YV9M9BG3ibaX1TUVqu15I8CVSF8VsvImCvjKWog10NkOmkgm1SqahY4Jg5lwULFXDYIWJkROULh3TeeTrqC3JniRiMNOdFtZKe8ZM6UT5OR9Qi8C8SPYMwLQsSE5VvI0xlXTj4ShvOfc0btLXSGAJRcpnopWOtAiSh6nGJ5uor68oHnbqrXc1bg1qMKT8XDbXsqfZjhRmgzziTPHzxXl03FEJljo
+      deprecated: false
+
+components:
+  securitySchemes:
+    jwt:
+      type: apiKey
+      name: Authorization
+      in: header
+  schemas:
+    createstresstracking:
+      title: createstresstracking
+      required:
+        - id
+        - userId
+        - imageUrl
+        - isAnonymous
+        - stressLevel
+        - createdAt
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        imageUrl:
+          type: string
+        isAnonymous:
+          type: boolean
+        stressLevel:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+      example:
+        id: cf519f1e-03df-43cf-8ca9-d2f4da9ca87c
+        userId: anonymous
+        imageUrl: uploads/195b9696-085a-4760-89d1-29508b46c5eb-275235830_2771016703206314_7596701828654798358_n.jpeg
+        isAnonymous: true
+        stressLevel: 2
+        createdAt: 2023-03-12T02:49:22.490Z
+    getstresstracking:
+      title: getstresstracking
+      required:
+        - id
+        - userId
+        - isAnonymous
+        - stressLevel
+        - createdAt
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        isAnonymous:
+          type: boolean
+        stressLevel:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+        imageUrl:
+          type: string
+      example:
+        id: bceb82ec-18b3-4a84-959c-b310c6cc965c
+        userId: anonymous
+        isAnonymous: true
+        stressLevel: 1
+        createdAt: 2023-03-12T02:44:59.902Z
+    signupRequest:
+      title: signupRequest
+      required:
+        - username
+        - email
+        - password
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        username: liucuxiu1
+        email: liucuxiu1@gmail.com
+        password: '123455678'
+    signup:
+      title: signup
+      required:
+        - id
+        - username
+        - email
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+      example:
+        id: a52ee470-6a1a-4600-b72f-b1afa35421d4
+        username: liucuxiu1
+        email: liucuxiu1@gmail.com
+    loginRequest:
+      title: loginRequest
+      required:
+        - username
+        - password
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      example:
+        username: liucuxiu1
+        password: '123455678'
+    login:
+      title: login
+      required:
+        - accessToken
+        - refreshToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+      example:
+        accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxpdWN1eGl1MUBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImxpdWN1eGl1MSIsInVzZXJJZCI6ImE1MmVlNDcwLTZhMWEtNDYwMC1iNzJmLWIxYWZhMzU0MjFkNCIsImlzRW1haWxWZXJpZmllZCI6ZmFsc2UsImlhdCI6MTY3NzkwMDU5NSwiZXhwIjoxNjc3OTMwNTk1fQ.j0WUe-yVVi8Z-MXMZHUkvKiAqzP6nOTNtvUR7ynyxFA
+        refreshToken: Z8px7I0mNCM7OhlWN2RQcemq8nJky5MRNZI3YV9M9BG3ibaX1TUVqu15I8CVSF8VsvImCvjKWog10NkOmkgm1SqahY4Jg5lwULFXDYIWJkROULh3TeeTrqC3JniRiMNOdFtZKe8ZM6UT5OR9Qi8C8SPYMwLQsSE5VvI0xlXTj4ShvOfc0btLXSGAJRcpnopWOtAiSh6nGJ5uor68oHnbqrXc1bg1qMKT8XDbXsqfZjhRmgzziTPHzxXl03FEJljo
+tags:
+  - name: Stress Tracking
+    description: 'Stress Tracking'
+  - name: User
+    description: 'User'
+

@@ -2,7 +2,6 @@
 ## 1. Problem
 - OOCA Stress Tracking
 #### Main Function:
-(Currently I just do create and query API.)
 
 - Stress Tracking
     - create/ get user stress tracking
@@ -17,3 +16,24 @@
 - Built this based on the Clean Architecture
 - see in document folder: architecture.png
 
+#### How to run project
+```bash
+   cd occa-app
+   
+   docker-compose up --build
+```
+#### How to run test
+
+```bash
+   cd occa-app
+   
+   npm run test
+```
+#### How to use API
+- sign up: call API: /user/signup to create a user
+- login: call API /user/login to login and get accessToken
+- set accessToken in header "Authorization" to call API
+
+#### API Design
+- see in document folder: api.yaml
+- start app and access http://localhost:8080/ to see swagger api
