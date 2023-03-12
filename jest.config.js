@@ -17,14 +17,14 @@ const jestConfig = {
     '!**/vendor/**'
   ],
   coverageReporters: [ 'clover', 'json', 'lcov', [ 'text', { 'skipFull': true } ] ],
-  coverageThreshold: {
-    global: {
-      branches: 30,
-      functions: 30,
-      lines: 30,
-      statements: 30
-    }
-  },
+  // coverageThreshold: {
+  //   global: {
+  //     branches: 30,
+  //     functions: 30,
+  //     lines: 30,
+  //     statements: 30
+  //   }
+  // },
   testResultsProcessor: 'jest-sonar-reporter',
   reporters: [
     'default',

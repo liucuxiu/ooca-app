@@ -16,10 +16,14 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = v4uuid();
-    cb(null, uniqueSuffix + '-' + file.originalname);
+    cb(null, uniqueSuffix + '.' + 'png');
   }
 });
-const upload = multer({ storage: storage });
+
+
+const upload = multer({
+  storage: storage
+});
 
 export const stressTrackingRouter = express.Router();
 

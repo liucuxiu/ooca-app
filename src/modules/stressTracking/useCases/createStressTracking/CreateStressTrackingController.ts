@@ -1,6 +1,7 @@
 import { BaseController } from '../../../../shared/infra/http/controller/BaseController';
 import { CreateStressTrackingUseCase } from './CreateStressTrackingUseCase';
 import { StressTrackingDTO } from '../../dtos/StressTrackingDTO';
+import sharp from 'sharp';
 
 export class CreateStressTrackingController extends BaseController {
   private useCase: CreateStressTrackingUseCase;
@@ -11,6 +12,12 @@ export class CreateStressTrackingController extends BaseController {
   }
 
   async executeImpl(req: any, res: any): Promise<any> {
+    if (req.file) {
+      const resizedImage = await sharp(req.file.path).resize(500, 500).toBuffer();
+      const resizedImagePath = 'uploads/' + req.file.filename;
+      await sharp(resizedImage).toFile(resizedImagePath);
+    }
+
     const stressTrackingDTO: StressTrackingDTO = {
       ...req.body,
       imageUrl: req.file ? req.file.path : undefined,
