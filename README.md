@@ -17,16 +17,12 @@
 - see in document folder: architecture.png
 
 #### How to run project
-```bash
-   cd occa-app
-   
+```bash   
    docker-compose up --build
 ```
 #### How to run test
 
-```bash
-   cd occa-app
-   
+```bash   
    npm run test
 ```
 #### How to use API
